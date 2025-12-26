@@ -1,10 +1,11 @@
-# HTU GenAI Assistant 🎓🤖
+<img width="1577" height="990" alt="image" src="https://github.com/user-attachments/assets/dee184ac-3c8a-453e-a722-3ef79be2f9c1" /># HTU GenAI Assistant 🎓🤖
 
 **Official AI Teaching Assistant for the Generative AI Training Program at Al Hussein Technical University (HTU).**
 
 This project is a production-ready **Retrieval-Augmented Generation (RAG)** system designed to assist students by autonomously answering questions based strictly on the official curriculum. The system features a dual-interface architecture (Web & Telegram) and runs on a self-hosted infrastructure.
 
-![Project Preview](assets/web_ui_preview.png)
+![Project Preview]<img width="1919" height="915" alt="image" src="https://github.com/user-attachments/assets/4492e9a1-cb96-48c4-ac21-18573417517e" />
+
 *(Customized Web Interface ensuring brand consistency with HTU colors)*
 
 ## 🌟 Key Features
@@ -50,7 +51,9 @@ The system is composed of three main modular workflows:
 
 | Telegram Bot | Workflow Logic |
 | :---: | :---: |
-| ![Telegram](assets/telegram_preview.png) | ![n8n](assets/system_diagram.png) |
+| ![Telegram] <img width="1577" height="990" alt="image" src="https://github.com/user-attachments/assets/fc7bc959-dfe6-44b0-81a9-95ddcf2f95c3" />
+ | ![n8n] <img width="583" height="536" alt="image" src="https://github.com/user-attachments/assets/f70002d9-6a57-4aba-933f-1902f1eadf1e" />
+ |
 
 ## 🚀 Setup & Deployment
 
