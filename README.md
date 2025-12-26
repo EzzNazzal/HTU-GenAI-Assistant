@@ -4,7 +4,7 @@
 
 This project is a production-ready **Retrieval-Augmented Generation (RAG)** system designed to assist students by autonomously answering questions based strictly on the official curriculum. The system features a dual-interface architecture (Web & Telegram) and runs on a self-hosted infrastructure.
 
-![Project Preview](assets/web_ui_preview.png)
+![Project Preview](HTU-GenAI-Assistant/assets/web_ui.png)
 *(Customized Web Interface ensuring brand consistency with HTU colors)*
 
 ## 🌟 Key Features
