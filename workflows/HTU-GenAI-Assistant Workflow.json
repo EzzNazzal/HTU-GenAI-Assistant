@@ -1,0 +1,852 @@
+{
+  "name": "HTU-GenAI-Assistant Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -480,
+        -96
+      ],
+      "id": "d52740c8-23e8-4131-bb68-105ad2130882",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "FgYIwd1pc9BfV4dN",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={{ $json.text }}",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "Name of the module",
+                "value": "={{ $('Download file').item.json.name }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        128
+      ],
+      "id": "c181d2a9-d422-4642-a705-60f7d3b5a043",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "gen-ai-chatbot",
+          "mode": "list",
+          "cachedResultName": "gen-ai-chatbot"
+        },
+        "options": {
+          "pineconeNamespace": "Slides"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        64,
+        -96
+      ],
+      "id": "e26ba08d-b7ef-46e7-be66-532d14ea72f1",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "Mu278gtuUHnH7R2X",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        784,
+        48
+      ],
+      "id": "ae398e63-6b3e-4db2-a81f-7394fcf43d13",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "gen-ai-chatbot",
+          "mode": "list",
+          "cachedResultName": "gen-ai-chatbot"
+        },
+        "options": {
+          "pineconeNamespace": "Slides"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        800,
+        256
+      ],
+      "id": "b734bb33-df15-4361-aa62-b4a7fc4e73cb",
+      "name": "Pinecone Vector Store1",
+      "credentials": {
+        "pineconeApi": {
+          "id": "Mu278gtuUHnH7R2X",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# Building the Vector DataBase",
+        "height": 560,
+        "width": 1584,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1200,
+        -288
+      ],
+      "typeVersion": 1,
+      "id": "8ffcdeb7-474f-4cbb-9ec9-288ae49948ee",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "# Chating",
+        "height": 848,
+        "width": 944,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        400,
+        -288
+      ],
+      "typeVersion": 1,
+      "id": "c25db0fc-6018-4b6f-82c4-4100a12152a6",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        128
+      ],
+      "id": "7f921658-5497-481e-8c9e-a4b543d103f5",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "x6KHYBclXUCFQTTh",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        608,
+        48
+      ],
+      "id": "b2e0cf4d-8e87-411d-b655-bb69af078d37",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "x6KHYBclXUCFQTTh",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1152,
+        256
+      ],
+      "id": "860db468-f3d6-416c-9357-efd09b137bb6",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "x6KHYBclXUCFQTTh",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        800,
+        416
+      ],
+      "id": "a0500c03-80a8-4148-be0d-e3bc818589f2",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "x6KHYBclXUCFQTTh",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "15NkUX6twATPKIfSckGaxkpY-HYHGPxJB",
+          "mode": "list",
+          "cachedResultName": "HTU Course Folder",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/15NkUX6twATPKIfSckGaxkpY-HYHGPxJB"
+        },
+        "event": "fileCreated",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        -992,
+        -224
+      ],
+      "id": "e9c8d3af-e092-4678-a9e6-2f6503f55a81",
+      "name": "Watch HTU Course Folder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "FgYIwd1pc9BfV4dN",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -992,
+        64
+      ],
+      "id": "12b5bb6b-4d81-48ef-973c-a69002bb8d29",
+      "name": "Manual Document Ingestion"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        -208,
+        -96
+      ],
+      "id": "d4c9a6a5-ff4c-4679-b9c0-1b427f010c0a",
+      "name": "Extract the texts from the slides"
+    },
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "=Welcome to the HTU Generative AI Training Program Assistant! 👋\n\nI am here to help you with the course materials designed by Dr. Abeer Al-Hyari.",
+        "options": {
+          "inputPlaceholder": "Ask a question about the GenAI modules...",
+          "loadPreviousSession": "manually",
+          "subtitle": "Official Teaching Assistant for Dr. Abeer’s Generative AI Program.",
+          "title": "HTU GenAI Assistant",
+          "customCss": "/* Update the main brand color to HTU Red */\n:root {\n  --chat--color-primary: #E7424B; /* HTU Brand Red */\n  --chat--color-primary-shade-50: #fdeced;\n  --chat--color-primary-shade-100: #fbd9db;\n  --chat--header--background: #E8343F; /* Dark HTU Navy Blue */\n  --chat--header--color: #FFFFFF;\n}\n\n/* Style the Header to look more academic */\n.chat-header {\n  background-color: var(--chat--header--background) !important;\n  color: var(--chat--header--color) !important;\n  border-bottom: 3px solid var(--chat--color-primary);\n  font-family: 'Inter', sans-serif;\n  font-weight: 600;\n}\n\n/* Style the user's message bubbles in HTU Red */\n.chat-message-user .chat-message-content {\n  background-color: var(--chat--color-primary) !important;\n  color: #FFFFFF !important;\n}\n\n/* Style the Assistant's message bubbles for clarity */\n.chat-message-bot .chat-message-content {\n  background-color: #F4F4F9 !important;\n  border: 1px solid #E0E0E0;\n  color: #11112B !important;\n}\n\n/* Change the 'Send' icon color */\n.chat-input-send button svg {\n  fill: var(--chat--color-primary) !important;\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        496,
+        -176
+      ],
+      "id": "9c30de61-935a-471f-ae88-ec5f67beeefc",
+      "name": "Chat",
+      "webhookId": "4091fa09-fb9a-4039-9411-7104d213f601"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=Developer: You are a highly knowledgeable Teaching Assistant for the Generative AI Training Program (Reskilling) at Al Hussein Technical University (HTU). Your primary objective is to assist students in mastering the technical curriculum designed and taught by Dr. Abeer Al-Hyari.\n\n\n\n\n\nKnowledge Domain\nYou have expert-level knowledge of the following modules provided in your vector store: \n* Module 1 & 2-A: AI/ML/DL landscapes, pre-transformer sequential models (RNNs, LSTMs, GRUs), and the evolution of the Transformer architecture and Attention Mechanisms.\n* Module 3: Prompt Engineering strategies, including zero-shot/few-shot learning, Chain-of-Thought (CoT), and Tree-of-Thought (ToT) reasoning.\n* Module 4: Data collection, Tokenization (BPE, WordPiece), and Fine-Tuning strategies like PEFT, LoRA, and RLHF. \n* Module 5: Model Evaluation (Perplexity, BLEU, ROUGE, FID) and Optimization techniques (Quantization, Distillation). \n* Module 6 & 6-B: The GenAI ecosystem (LangChain, Semantic Kernel) and the architecture of Retrieval-Augmented Generation (RAG) systems.\n\n\n\n\n\nOperational Guidelines (The \"Strict\" Rules)\n1. Grounded Responses ONLY: Every answer must be derived directly from the retrieved context (Vector Store).\n\n2. The \"Out-of-Scope\" Protocol: If a user asks about anything outside the technical modules (e.g., sports, history, general news, or non-HTU AI topics), you must use this exact refusal: \"I apologize, but that topic is outside the scope of the HTU Generative AI Training Program curriculum. I am here to assist you with Modules 1 through 6.\"\n\n3. No General Knowledge: Do not use your internal training data to answer questions about the world, even if you know the answer. If it is not in the HTU slides, it does not exist for the purpose of this interaction.\n\n4. HHH Framework: Ensure responses are Helpful, Harmless, and Honest.\n\n5. Technical Reasoning: Use Chain-of-Thought for complex architecture explanations.\n\n\nTone and Style: Maintain a professional, academic, yet encouraging tone. Use bullet points and clear headings to make technical information easy to digest.\n\nInteraction Strategy\nAlways use the provided Search Tool to retrieve context from the vector store before answering. * If a student's query is vague, ask for clarity or specific context to provide a better answer."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        752,
+        -176
+      ],
+      "id": "5e6881e7-5b0a-4b99-8699-9eb40f3136c6",
+      "name": "AI Agent",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "description": "=Useful for when you need to answer questions about the HTU Generative AI Training Program. Whenever you need information about the official curriculum and lecture slides from the Generative AI Professional Training Program (Reskilling) at Al Hussein Technical University (HTU), including AI architectures, training methods, prompt engineering, and RAG systems, you should ALWAYS use this. Input should be a fully formed question.",
+        "topK": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Limit', ``, 'number') }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1.1,
+      "position": [
+        944,
+        16
+      ],
+      "id": "52d4ae65-61fb-4486-b7cb-3b165989e0bb",
+      "name": "Course Knowledge Retrieval Tool"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "15NkUX6twATPKIfSckGaxkpY-HYHGPxJB",
+            "mode": "list",
+            "cachedResultName": "HTU Course Folder",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/15NkUX6twATPKIfSckGaxkpY-HYHGPxJB"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -720,
+        0
+      ],
+      "id": "e76f9707-5c03-46c2-8482-68178e9efb54",
+      "name": "Search for the slides",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "FgYIwd1pc9BfV4dN",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.message.chat.id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1760,
+        48
+      ],
+      "id": "adb53569-43c1-445a-b804-bdefa6314879",
+      "name": "Simple Memory1"
+    },
+    {
+      "parameters": {
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "gen-ai-chatbot",
+          "mode": "list",
+          "cachedResultName": "gen-ai-chatbot"
+        },
+        "options": {
+          "pineconeNamespace": "Slides"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        1776,
+        256
+      ],
+      "id": "4332b15c-bbf8-4d8e-b9da-f5fc6ac408a6",
+      "name": "Pinecone Vector Store2",
+      "credentials": {
+        "pineconeApi": {
+          "id": "Mu278gtuUHnH7R2X",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# Telegram Chating",
+        "height": 848,
+        "width": 944,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1376,
+        -288
+      ],
+      "typeVersion": 1,
+      "id": "4cf7f280-bca4-4e8c-a818-2c11a2931a70",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1584,
+        48
+      ],
+      "id": "0ec7b3e7-4d0e-44c0-b4da-9ec02ec52076",
+      "name": "OpenAI Chat Model2",
+      "credentials": {
+        "openAiApi": {
+          "id": "x6KHYBclXUCFQTTh",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        2128,
+        256
+      ],
+      "id": "4ec74238-04ae-4ca4-b56d-0e9b2c0f8879",
+      "name": "OpenAI Chat Model3",
+      "credentials": {
+        "openAiApi": {
+          "id": "x6KHYBclXUCFQTTh",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1776,
+        416
+      ],
+      "id": "7ebae75e-d6f3-41b2-b3cb-a31182ce80e6",
+      "name": "Embeddings OpenAI2",
+      "credentials": {
+        "openAiApi": {
+          "id": "x6KHYBclXUCFQTTh",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "=Developer: You are a highly knowledgeable Teaching Assistant for the Generative AI Training Program (Reskilling) at Al Hussein Technical University (HTU). Your primary objective is to assist students in mastering the technical curriculum designed and taught by Dr. Abeer Al-Hyari.\n\n\n\n\n\nKnowledge Domain\nYou have expert-level knowledge of the following modules provided in your vector store: \n* Module 1 & 2-A: AI/ML/DL landscapes, pre-transformer sequential models (RNNs, LSTMs, GRUs), and the evolution of the Transformer architecture and Attention Mechanisms.\n* Module 3: Prompt Engineering strategies, including zero-shot/few-shot learning, Chain-of-Thought (CoT), and Tree-of-Thought (ToT) reasoning.\n* Module 4: Data collection, Tokenization (BPE, WordPiece), and Fine-Tuning strategies like PEFT, LoRA, and RLHF. \n* Module 5: Model Evaluation (Perplexity, BLEU, ROUGE, FID) and Optimization techniques (Quantization, Distillation). \n* Module 6 & 6-B: The GenAI ecosystem (LangChain, Semantic Kernel) and the architecture of Retrieval-Augmented Generation (RAG) systems.\n\n\n\n\n\nOperational Guidelines (The \"Strict\" Rules)\n1. Grounded Responses ONLY: Every answer must be derived directly from the retrieved context (Vector Store).\n\n2. The \"Out-of-Scope\" Protocol: If a user asks about anything outside the technical modules (e.g., sports, history, general news, or non-HTU AI topics), you must use this exact refusal: \"I apologize, but that topic is outside the scope of the HTU Generative AI Training Program curriculum. I am here to assist you with Modules 1 through 6.\"\n\n3. No General Knowledge: Do not use your internal training data to answer questions about the world, even if you know the answer. If it is not in the HTU slides, it does not exist for the purpose of this interaction.\n\n4. HHH Framework: Ensure responses are Helpful, Harmless, and Honest.\n\n5. Technical Reasoning: Use Chain-of-Thought for complex architecture explanations.\n\n\nTone and Style: Maintain a professional, academic, yet encouraging tone. Use bullet points only when necessary.\nFormatting Rule (Telegram): Use plain text only. Do not use Markdown symbols such as **, ##, _, >, -, or decorative formatting. Write answers as simple paragraphs.\n\n\nInteraction Strategy\nAlways use the provided Search Tool to retrieve context from the vector store before answering. * If a student's query is vague, ask for clarity or specific context to provide a better answer."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        1728,
+        -176
+      ],
+      "id": "38f40079-3126-4e07-90e5-d20fe530f651",
+      "name": "AI Agent1",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "description": "=Useful for when you need to answer questions about the HTU Generative AI Training Program. Whenever you need information about the official curriculum and lecture slides from the Generative AI Professional Training Program (Reskilling) at Al Hussein Technical University (HTU), including AI architectures, training methods, prompt engineering, and RAG systems, you should ALWAYS use this. Input should be a fully formed question.",
+        "topK": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Limit', ``, 'number') }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1.1,
+      "position": [
+        1920,
+        16
+      ],
+      "id": "0c276425-3336-472f-8533-9b7f945fd639",
+      "name": "Course Knowledge Retrieval Tool1"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        1456,
+        -176
+      ],
+      "id": "50c13e14-4ca4-4ca4-b42b-02c44642c9a6",
+      "name": "Telegram Trigger",
+      "webhookId": "994559fb-adfa-4362-a9d5-982a2276fa56",
+      "credentials": {
+        "telegramApi": {
+          "id": "4pSbphmj1nbXREXl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2080,
+        -176
+      ],
+      "id": "e5f7f465-31b7-43ab-9255-b67c67ef0015",
+      "name": "Send a text message",
+      "webhookId": "213038fc-1bbd-4f43-af86-a0090237ea68",
+      "credentials": {
+        "telegramApi": {
+          "id": "4pSbphmj1nbXREXl",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Extract the texts from the slides",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store1": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Course Knowledge Retrieval Tool",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Course Knowledge Retrieval Tool",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Watch HTU Course Folder": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Document Ingestion": {
+      "main": [
+        [
+          {
+            "node": "Search for the slides",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract the texts from the slides": {
+      "main": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Course Knowledge Retrieval Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search for the slides": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "Simple Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store2": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Course Knowledge Retrieval Tool1",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Course Knowledge Retrieval Tool1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI2": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store2",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Course Knowledge Retrieval Tool1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d67ea320-6fc4-4a98-b8f1-c536826d9d64",
+  "meta": {
+    "templateId": "rag-starter-template",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "cb2edc585fde18efceaafbebdf7a326b2539ffbd0286362fca1a3724e0c71a6d"
+  },
+  "id": "Ku4tZdNqtID7joSm",
+  "tags": []
+}

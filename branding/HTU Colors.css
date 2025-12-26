@@ -1,0 +1,35 @@
+/* Update the main brand color to HTU Red */
+:root {
+  --chat--color-primary: #E7424B; /* HTU Brand Red */
+  --chat--color-primary-shade-50: #fdeced;
+  --chat--color-primary-shade-100: #fbd9db;
+  --chat--header--background: #E8343F; /* Dark HTU Red Logo */
+  --chat--header--color: #FFFFFF;
+}
+
+/* Style the Header to look more academic */
+.chat-header {
+  background-color: var(--chat--header--background) !important;
+  color: var(--chat--header--color) !important;
+  border-bottom: 3px solid var(--chat--color-primary);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+/* Style the user's message bubbles in HTU Red */
+.chat-message-user .chat-message-content {
+  background-color: var(--chat--color-primary) !important;
+  color: #FFFFFF !important;
+}
+
+/* Style the Assistant's message bubbles for clarity */
+.chat-message-bot .chat-message-content {
+  background-color: #F4F4F9 !important;
+  border: 1px solid #E0E0E0;
+  color: #11112B !important;
+}
+
+/* Change the 'Send' icon color */
+.chat-input-send button svg {
+  fill: var(--chat--color-primary) !important;
+}
