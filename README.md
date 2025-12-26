@@ -4,7 +4,7 @@
 
 This project is a production-ready **Retrieval-Augmented Generation (RAG)** system designed to assist students by autonomously answering questions based strictly on the official curriculum. The system features a dual-interface architecture (Web & Telegram) and runs on a self-hosted infrastructure.
 
-(HTU-GenAI-Assistant/assets/web_ui.png)
+![Project Preview](assets/web_ui_preview.png)
 *(Customized Web Interface ensuring brand consistency with HTU colors)*
 
 ## 🌟 Key Features
@@ -63,7 +63,7 @@ The system is composed of three main modular workflows:
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/YourUsername/HTU-GenAI-Assistant.git](https://github.com/YourUsername/HTU-GenAI-Assistant.git)
+    git clone [https://github.com/EzzNazzal/HTU-GenAI-Assistant.git](https://github.com/EzzNazzal/HTU-GenAI-Assistant.git)
     ```
 
 2.  **Import Workflows:**
@@ -87,4 +87,4 @@ The system is composed of three main modular workflows:
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
-*Built with ❤️ by **Ezz El-Din Nazzal** | Data Scientist & AI Engineer*
+*Built by **EzzEdden Nazzal** | Data Scientist & AI Engineer*
