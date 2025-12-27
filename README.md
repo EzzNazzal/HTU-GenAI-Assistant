@@ -50,7 +50,7 @@ The system is composed of three main modular workflows:
 
 | Telegram Bot | Workflow Logic |
 | :---: | :---: |
-| ![Telegram](assets/telegram_preview.png) | ![n8n](assets/system_diagram.png) |
+| ![Telegram](assets/telegram_preview.png) | ![n8n](assets/Telegram_Workflow.png) |
 
 ## 🚀 Setup & Deployment
 
